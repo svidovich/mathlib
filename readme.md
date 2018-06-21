@@ -1,0 +1,1 @@
+This will hold all of my math libraries as I slowly rebuild them from my old matlab algos. Will need improved over time.
