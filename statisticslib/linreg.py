@@ -6,7 +6,7 @@ import sys
 
 def linreg(abscissae, ordinates):
     if len(abscissae) != len(ordinates):
-        print("Sample mismatch. You have " + len(abscissae) + " abscissae, and " + len(ordinates) + " ordinates.\n")
+        print("Sample mismatch. You have " + str(len(abscissae)) + " abscissae, and " + str(len(ordinates)) + " ordinates.\n")
         print("These numbers should be the same.\n")
         exit(1)
     n = len(abscissae)
