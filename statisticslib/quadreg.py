@@ -1,5 +1,6 @@
-# ax2 + bx + c
-# TODO: Fix this fucking mess
+# This function takes a matching list of abscissae and ordinates and performs quadratic regression on them, returning
+# the coefficients of the regression polynomial ax^2 + bx + c
+
 
 from math import pow
 
@@ -50,19 +51,18 @@ def quadreg(abscissae, ordinates):
     for i in range(0,n):
         sum_on_x2_sum_on_y += sum_on_squared_xs*sum_on_ys
     
-    
+    S11 = sum_on_squared_xs - (1/n)*pow(sum_on_xs,2)    
+    S12 = sum_on_cubed_xs - (1/n)*sum_on_xs*sum_on_squared_xs
+    S22 = sum_on_tetra_xs - (1/n)*pow(sum_on_squared_xs,2)
+    Sy1 = sum_on_xy - (1/n)*sum_on_ys*sum_on_xs
+    Sy2 = sum_on_x2y - (1/n)*sum_on_ys*sum_on_squared_xs
 
-    a_numerator = ((sum_on_x2y - (1/n)*sum_on_x2_sum_on_y)*(sum_on_squared_xs - (1/n)*pow(sum_on_xs,2))) - ((sum_on_xy - (1/n)*sum_on_x_sum_on_y)*(sum_on_cubed_xs - (1/n)*sum_on_xs*sum_on_squared_xs))
-    a_denominator = ((sum_on_squared_xs - (1/n)*pow(sum_on_xs,2)))*(sum_on_tetra_xs - (1/n)*pow(sum_on_squared_xs,2)) - pow(sum_on_cubed_xs - (1/n)*sum_on_xs*sum_on_squared_xs,2)
+    xbar = (1/n)*sum_on_xs
+    x2bar = (1/n)*sum_on_squared_xs
+    ybar = (1/n)*sum_on_ys
 
-    a = a_numerator/a_denominator
-
-    b_numerator = ((sum_on_xy - (1/n)*sum_on_x_sum_on_y)*(sum_on_tetra_xs - (1/n)*pow(sum_on_squared_xs,2))) - ((sum_on_x2y - (1/n)*pow(sum_on_xs,2)*(sum_on_cubed_xs - (1/n)*sum_on_squared_xs*sum_on_xs)))
-    b_denominator = ((sum_on_squared_xs - (1/n)*pow(sum_on_xs,2))*(sum_on_tetra_xs - (1/n)*pow(sum_on_squared_xs,2))) - pow(sum_on_tetra_xs - (1/n)*sum_on_squared_xs,2)
-
-    b = b_numerator/b_denominator
-
-    c = (1/n)*sum_on_ys - ((b/n)*sum_on_xs - (a/n)*sum_on_squared_xs)
-
+    b = (Sy1*S22 - Sy2*S12)/(S22*S11 - pow(S12,2))
+    a = (Sy2*S11 - Sy1*S12)/(S22*S11 - pow(S12,2))
+    c = ybar - b*xbar - a*x2bar
     
     return a, b, c
