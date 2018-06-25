@@ -15,11 +15,3 @@ def backsub(U,b):
         for j in range(0,i):
             b[j] = b[j] - U[j,i]*x[i]
     return x
-
-
-
-U = np.matrix([[1,2,3],[0,5,6],[0,0,9]])
-b = np.matrix([[1],[2],[3]])
-
-x = backsub(U,b)
-print(x)
