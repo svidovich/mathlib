@@ -13,13 +13,13 @@ def householder(A):
     m = shape[0]
     n = shape[1]
     I = np.eye(m,n)
-    v = np.zeros(n,1)
-    Q = np.zeros(m,n)
+    v = np.zeros(shape=(n,1))
+    Q = np.zeros(shape=(m,n))
     for k in range(0,n):
-        x = np.zeros(m-k,1)
+        x = np.zeros(shape=(m-k,1))
         for i in range(0,m-k):
             x[i,0] = A[i + k,k]
-        v[k] = x + np.sign(x[0])*np.linalg.norm(x)*e[:,1]
+        v[k] = x + np.sign(x[0])*np.linalg.norm(x)*I[:,1]
         v[k] /= np.linalg.norm(v[k])
         A[k:m,k:n] -= 2*(v*(v.T))*A[k:m,k:n]
         Q[k:m,k] = v
