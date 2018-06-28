@@ -7,12 +7,16 @@ import numpy as np
 
 def polynomialregression(abscissae, ordinates, degree):
     A = vander(abscissae,degree)
-    qty,R = householder(A,ordinates)
+    #qty,R = householder(A,ordinates)
     n = len(ordinates)
     y = np.zeros(shape=(n,1))
     for i in range(0,n):
         y[i] = ordinates[i]
+    #b = backsub(R,qty)
+    Q,R = np.linalg.qr(A)
+    qty = Q.T.dot(y)
     b = backsub(R,qty)
+
     print(A)
     print(y)
     print(b)
