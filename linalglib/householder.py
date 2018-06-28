@@ -6,7 +6,7 @@
 # EXPERIMENTAL
 # TODO: BUG TESTING
 import numpy as np
-
+import math
 
 def householder(A):
     shape = A.shape
@@ -15,12 +15,11 @@ def householder(A):
     I = np.eye(m,n)
     v = np.zeros(shape=(n,1))
     Q = np.zeros(shape=(m,n))
+    v = np.zeros(shape=(m,1))
     for k in range(0,n):
-        x = np.zeros(shape=(m-k,1))
-        for i in range(0,m-k):
-            x[i,0] = A[i + k,k]
-        v[k] = x + np.sign(x[0])*np.linalg.norm(x)*I[:,1]
-        v[k] /= np.linalg.norm(v[k])
+        x = A[k:m,k]
+        v = x.reshape(m-k,1) + np.sign(x[0])*np.linalg.norm(x)*(I[k:m,k].reshape(m-k,1))
+        v /= np.linalg.norm(v)
         A[k:m,k:n] -= 2*(v*(v.T))*A[k:m,k:n]
         Q[k:m,k] = v
     R = A

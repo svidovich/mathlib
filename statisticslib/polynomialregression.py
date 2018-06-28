@@ -14,4 +14,6 @@ def polynomialregression(abscissae, ordinates, degree):
         y[i] = ordinates[i]
     v = Q.T*y
     b = backsub(R,v)
+    print(A)
+    print(y)
     print(b)
